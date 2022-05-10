@@ -1,49 +1,81 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 
 class Restaurant {
-  int RestaurantID;
-  String RestaurantName;
-  String Image;
-  String Address;
+  int restaurantID;
+  String restaurantName;
+  String image;
+  String address;
+  int like;
+  bool statusLike = false;
+  var listImange = [];
   Restaurant(
-      {required this.RestaurantID,
-      required this.RestaurantName,
-      required this.Address,
-      required this.Image});
+      {required this.restaurantID,
+      required this.restaurantName,
+      required this.address,
+      required this.image,
+      required this.like,
+      required this.statusLike,
+      required this.listImange});
 }
 
-class Restaurants with ChangeNotifier {
-  final List<Restaurant> data = [
-    Restaurant(
-        RestaurantID: 1,
-        RestaurantName: 'Nhà hàng Kiều',
-        Address: '65 Nguyễn Công Trứ, Phường Vĩ Dạ, Thành Phố Huế',
-        Image:
-            'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'),
-    Restaurant(
-        RestaurantID: 2,
-        RestaurantName: 'Cơm Niêu Nhà',
-        Address: '77 Nguyễn Huệ, Phường Phú Nhuận, Thành Phôs Huế',
-        Image:
-            'https://images.foody.vn/res/g21/201010/s/foody-moc-rieu-nuong-238-636111242586051838.jpg'),
-    Restaurant(
-        RestaurantID: 3,
-        RestaurantName: 'Nhà hàng nổi Sông Hương',
-        Address: 'Trên bờ sông hương',
-        Image:
-            'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'),
-    Restaurant(
-        RestaurantID: 4,
-        RestaurantName: 'Nhà hàng Hoa Sứ',
-        Address: '268 Nguyễn Sinh Cung, Phường Vĩ Dạ, Thành Phố Huế',
-        Image:
-            'https://images.foody.vn/res/g21/201010/s/foody-moc-rieu-nuong-238-636111242586051838.jpg'),
-  ];
-  // ignore: non_constant_identifier_names
-  Restaurant? GetRestaurant(int id) {
-    for (int i = 0; i < data.length; i++) {
-      if (data[i].RestaurantID == id) return data[i];
-    }
-    return null;
-  }
-}
+final List<Restaurant> data = [
+  Restaurant(
+      restaurantID: 1,
+      restaurantName: 'Nhà hàng Kiều',
+      address: '65 Nguyễn Công Trứ, Phường Vĩ Dạ, Thành Phố Huế',
+      image:
+          'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+      like: 8,
+      statusLike: false,
+      listImange: [
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'
+      ]),
+  Restaurant(
+      restaurantID: 2,
+      restaurantName: 'Cơm Niêu Nhà',
+      address: '77 Nguyễn Huệ, Phường Phú Nhuận, Thành Phôs Huế',
+      image:
+          'https://images.foody.vn/res/g21/201010/s/foody-moc-rieu-nuong-238-636111242586051838.jpg',
+      like: 8,
+      statusLike: false,
+      listImange: [
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'
+      ]),
+  Restaurant(
+      restaurantID: 3,
+      restaurantName: 'Nhà hàng nổi Sông Hương',
+      address: 'Trên bờ sông hương',
+      image:
+          'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+      like: 8,
+      statusLike: true,
+      listImange: [
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'
+      ]),
+  Restaurant(
+      restaurantID: 4,
+      restaurantName: 'Nhà hàng Hoa Sứ',
+      address: '268 Nguyễn Sinh Cung, Phường Vĩ Dạ, Thành Phố Huế',
+      image:
+          'https://images.foody.vn/res/g21/201010/s/foody-moc-rieu-nuong-238-636111242586051838.jpg',
+      like: 8,
+      statusLike: false,
+      listImange: [
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg',
+        'https://media-cdn.tripadvisor.com/media/photo-s/05/b3/be/5a/hoa-su.jpg'
+      ]),
+];
+// ignore: non_constant_identifier_names
