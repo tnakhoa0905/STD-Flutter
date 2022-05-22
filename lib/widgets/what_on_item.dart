@@ -12,27 +12,28 @@ class WhatOnItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventBloC evt = EventBloC();
-    evt.getEvent(id);
+
     return StreamBuilder<Event>(
         stream: evt.eventController.stream,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
+            evt.getEvent(id);
             return const Center(child: CircularProgressIndicator());
           }
           return Container(
+            height: 360,
             margin: const EdgeInsets.only(bottom: 12),
-            decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12))),
+            decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(12)),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Flexible(
-                fit: FlexFit.loose,
+              Expanded(
+                flex: 5,
                 child: Stack(
                   children: [
                     SizedBox(
                       width: double.infinity,
+                      height: 243,
                       child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(12),
@@ -75,10 +76,11 @@ class WhatOnItem extends StatelessWidget {
                   ],
                 ),
               ),
-              Flexible(
-                fit: FlexFit.loose,
+              Expanded(
+                flex: 4,
                 child: Container(
-                  margin: const EdgeInsets.all(24),
+                  height: 117,
+                  margin: const EdgeInsets.only(top: 24, left: 24, right: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -87,10 +89,10 @@ class WhatOnItem extends StatelessWidget {
                         child: Text(
                             Jiffy(DateFormat('yyyy-MM-dd')
                                     .format(snapshot.data!.timeStart))
-                                .yMMMd,
+                                .yMMMdjm,
                             style: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 37, 89, 142))),
+                                fontSize: 14,
+                                color: Color.fromARGB(255, 228, 18, 200))),
                       ),
                       Container(
                         margin: const EdgeInsets.only(bottom: 4),
@@ -106,23 +108,20 @@ class WhatOnItem extends StatelessWidget {
                             },
                             child: Text(snapshot.data!.name,
                                 style: const TextStyle(
-                                    fontSize: 32,
+                                    fontSize: 24,
                                     color: Color.fromARGB(255, 45, 43, 110),
                                     fontWeight: FontWeight.w900))),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 4),
-                        child: Text(snapshot.data!.locationName,
-                            style: const TextStyle(
-                                fontSize: 20,
-                                color: Color.fromARGB(255, 110, 110, 110))),
-                      ),
+                      Text(snapshot.data!.locationName,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 110, 110, 110))),
                       Row(
                         children: [
                           Container(
                             margin: const EdgeInsets.only(right: 4),
                             child: CircleAvatar(
-                              radius: 24,
+                              radius: 20,
                               backgroundImage:
                                   NetworkImage(snapshot.data!.organiser.avatar),
                             ),
@@ -140,7 +139,7 @@ class WhatOnItem extends StatelessWidget {
                           const Spacer(),
                           Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(44),
                                 border: Border.all(
                                     width: 3,
                                     color: snapshot.data!.isLike == true

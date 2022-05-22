@@ -57,13 +57,14 @@ List<Event> events = [
       pathImage:
           "https://s3-alpha-sig.figma.com/img/0125/693d/b778cb478d19e07a664bd764ddd467ae?Expires=1653264000&Signature=GFPwRyltvDr0IzLETVfDB0wHvImMlHFoBeNW11Qf5sGyRToVo0i-I9Y1YiN-2jj8yWSY8ThhcZLn0ZYP2FBKCSpv~FYTQnrMdm2cL7ojlEL0vzKYTGP7YSlVMh0wFcKVtcf3owTyqmKTPeAqWbBeA8K3bSoZCGe2YBwklNFGVNo-6zZ7fICelkdoK-ucjsQpg~DfIg-UbKZzEtQfFfmIy9k5r9-xpn1d13Fz0GoF9Ge5a1Sz7-v0UmnYDhhyQXWy37JLQcGVQwwBdep6eie63pmiDPE2Dy73tQ~MdH~9cTABzngN-ZCfHfGC53STQNohXcPHaCpjvaoHfsHmJ2wkGQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       locationName: "77 Nguyễn huệ",
-      description: "Show âm nhạc lớn nhất cả nước",
+      description:
+          "Chương trình âm nhạc Hàn Quốc được phát sóng hàng tuần, với các nghệ sĩ khác nhau biểu diễn trên các chương trình để quảng bá cho sản phẩm âm nhạc của họ. Các đơn vị phát thanh truyền hình lớn nhất của Hàn Quốc đều có chương trình riêng của mình, được phát trên các kênh khác nhau. SBS có Inkigayo, KBS có Music Bank, MBC có Show! Music Core (hay còn được gọi đơn giản là Music Core), Mnet có M Countdown, MBC M có Show Champion and SBS MTV có The Show.",
       timeStart: DateTime.utc(2022, 12, 23),
       timeEnd: DateTime.utc(2022, 12, 24),
       organiser: User(
-          id: 1,
+          id: 2,
           email: "tnakhoa.0905@gmail.com",
-          avatar: "avatar",
+          avatar: "assets/images/avatars/avt1.jpg",
           lastName: "Trương",
           name: "Khoa",
           isFollowed: true),
@@ -77,13 +78,14 @@ List<Event> events = [
       pathImage:
           "https://s3-alpha-sig.figma.com/img/9761/7c2f/98430a33e9b8dd327968c7049a2a4b51?Expires=1653264000&Signature=Deq6OZPuQFE8iHjLHsZzULfIdKTDVw9UqGplWYXkQqkbb3D7zVJh6X93CDIobJMnr7ZukQn73UNpkh83a985184EsVaNxK0UTkbIekT-k4GkBdibjlnw9kVmzdIXly51Z6bdHQ1doHNlaBCLME59AoF1NuhCPtwjnFTQhGsxtVp0YSiDnA4R0nnUWVjWNxkIj5Ezqg0oi9Mg4IZrXuk-dpFUlR~Mi6MI1mYPUM4NjoGDRzw8AkfuZq20J08-s6pwwTWezDBaU8rBy6YTFmel52l81xOQVAgGps0JLDowBDB7ccktZXE56IyQRj6-eUg6GbNNOf1CAhk2Ae6uNM6CgQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       locationName: "77 Nguyễn huệ",
-      description: "Show âm nhạc lớn nhất cả nước",
+      description:
+          "Chương trình âm nhạc Hàn Quốc được phát sóng hàng tuần, với các nghệ sĩ khác nhau biểu diễn trên các chương trình để quảng bá cho sản phẩm âm nhạc của họ. Các đơn vị phát thanh truyền hình lớn nhất của Hàn Quốc đều có chương trình riêng của mình, được phát trên các kênh khác nhau. SBS có Inkigayo, KBS có Music Bank, MBC có Show! Music Core (hay còn được gọi đơn giản là Music Core), Mnet có M Countdown, MBC M có Show Champion and SBS MTV có The Show.",
       timeStart: DateTime.utc(2022, 12, 23),
       timeEnd: DateTime.utc(2022, 12, 24),
       organiser: User(
-          id: 1,
+          id: 3,
           email: "tnakhoa.0905@gmail.com",
-          avatar: "avatar",
+          avatar: "assets/images/avatars/avt1.jpg",
           lastName: "Trương",
           name: "Khoa",
           isFollowed: true),
@@ -97,13 +99,14 @@ List<Event> events = [
       pathImage:
           "https://s3-alpha-sig.figma.com/img/0125/693d/b778cb478d19e07a664bd764ddd467ae?Expires=1653264000&Signature=GFPwRyltvDr0IzLETVfDB0wHvImMlHFoBeNW11Qf5sGyRToVo0i-I9Y1YiN-2jj8yWSY8ThhcZLn0ZYP2FBKCSpv~FYTQnrMdm2cL7ojlEL0vzKYTGP7YSlVMh0wFcKVtcf3owTyqmKTPeAqWbBeA8K3bSoZCGe2YBwklNFGVNo-6zZ7fICelkdoK-ucjsQpg~DfIg-UbKZzEtQfFfmIy9k5r9-xpn1d13Fz0GoF9Ge5a1Sz7-v0UmnYDhhyQXWy37JLQcGVQwwBdep6eie63pmiDPE2Dy73tQ~MdH~9cTABzngN-ZCfHfGC53STQNohXcPHaCpjvaoHfsHmJ2wkGQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       locationName: "77 Nguyễn huệ",
-      description: "Show âm nhạc lớn nhất cả nước",
+      description:
+          "Chương trình âm nhạc Hàn Quốc được phát sóng hàng tuần, với các nghệ sĩ khác nhau biểu diễn trên các chương trình để quảng bá cho sản phẩm âm nhạc của họ. Các đơn vị phát thanh truyền hình lớn nhất của Hàn Quốc đều có chương trình riêng của mình, được phát trên các kênh khác nhau. SBS có Inkigayo, KBS có Music Bank, MBC có Show! Music Core (hay còn được gọi đơn giản là Music Core), Mnet có M Countdown, MBC M có Show Champion and SBS MTV có The Show.",
       timeStart: DateTime.utc(2022, 12, 23),
       timeEnd: DateTime.utc(2022, 12, 24),
       organiser: User(
-          id: 1,
+          id: 4,
           email: "tnakhoa.0905@gmail.com",
-          avatar: "avatar",
+          avatar: "assets/images/avatars/avt2.jpg",
           lastName: "Trương",
           name: "Khoa",
           isFollowed: true),
@@ -117,13 +120,14 @@ List<Event> events = [
       pathImage:
           "https://s3-alpha-sig.figma.com/img/9761/7c2f/98430a33e9b8dd327968c7049a2a4b51?Expires=1653264000&Signature=Deq6OZPuQFE8iHjLHsZzULfIdKTDVw9UqGplWYXkQqkbb3D7zVJh6X93CDIobJMnr7ZukQn73UNpkh83a985184EsVaNxK0UTkbIekT-k4GkBdibjlnw9kVmzdIXly51Z6bdHQ1doHNlaBCLME59AoF1NuhCPtwjnFTQhGsxtVp0YSiDnA4R0nnUWVjWNxkIj5Ezqg0oi9Mg4IZrXuk-dpFUlR~Mi6MI1mYPUM4NjoGDRzw8AkfuZq20J08-s6pwwTWezDBaU8rBy6YTFmel52l81xOQVAgGps0JLDowBDB7ccktZXE56IyQRj6-eUg6GbNNOf1CAhk2Ae6uNM6CgQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       locationName: "77 Nguyễn huệ",
-      description: "Show âm nhạc lớn nhất cả nước",
+      description:
+          "Chương trình âm nhạc Hàn Quốc được phát sóng hàng tuần, với các nghệ sĩ khác nhau biểu diễn trên các chương trình để quảng bá cho sản phẩm âm nhạc của họ. Các đơn vị phát thanh truyền hình lớn nhất của Hàn Quốc đều có chương trình riêng của mình, được phát trên các kênh khác nhau. SBS có Inkigayo, KBS có Music Bank, MBC có Show! Music Core (hay còn được gọi đơn giản là Music Core), Mnet có M Countdown, MBC M có Show Champion and SBS MTV có The Show.",
       timeStart: DateTime.utc(2022, 12, 23),
       timeEnd: DateTime.utc(2022, 12, 24),
       organiser: User(
-          id: 1,
+          id: 5,
           email: "tnakhoa.0905@gmail.com",
-          avatar: "avatar",
+          avatar: "assets/images/avatars/avt3.jpg",
           lastName: "Trương",
           name: "Khoa",
           isFollowed: true),
@@ -137,13 +141,14 @@ List<Event> events = [
       pathImage:
           "https://s3-alpha-sig.figma.com/img/0125/693d/b778cb478d19e07a664bd764ddd467ae?Expires=1653264000&Signature=GFPwRyltvDr0IzLETVfDB0wHvImMlHFoBeNW11Qf5sGyRToVo0i-I9Y1YiN-2jj8yWSY8ThhcZLn0ZYP2FBKCSpv~FYTQnrMdm2cL7ojlEL0vzKYTGP7YSlVMh0wFcKVtcf3owTyqmKTPeAqWbBeA8K3bSoZCGe2YBwklNFGVNo-6zZ7fICelkdoK-ucjsQpg~DfIg-UbKZzEtQfFfmIy9k5r9-xpn1d13Fz0GoF9Ge5a1Sz7-v0UmnYDhhyQXWy37JLQcGVQwwBdep6eie63pmiDPE2Dy73tQ~MdH~9cTABzngN-ZCfHfGC53STQNohXcPHaCpjvaoHfsHmJ2wkGQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
       locationName: "77 Nguyễn huệ",
-      description: "Show âm nhạc lớn nhất cả nước",
+      description:
+          "Chương trình âm nhạc Hàn Quốc được phát sóng hàng tuần, với các nghệ sĩ khác nhau biểu diễn trên các chương trình để quảng bá cho sản phẩm âm nhạc của họ. Các đơn vị phát thanh truyền hình lớn nhất của Hàn Quốc đều có chương trình riêng của mình, được phát trên các kênh khác nhau. SBS có Inkigayo, KBS có Music Bank, MBC có Show! Music Core (hay còn được gọi đơn giản là Music Core), Mnet có M Countdown, MBC M có Show Champion and SBS MTV có The Show.",
       timeStart: DateTime.utc(2022, 12, 23),
       timeEnd: DateTime.utc(2022, 12, 24),
       organiser: User(
-          id: 1,
+          id: 6,
           email: "tnakhoa.0905@gmail.com",
-          avatar: "avatar",
+          avatar: "assets/images/avatars/avt4.jpg",
           lastName: "Trương",
           name: "Khoa",
           isFollowed: true),

@@ -381,6 +381,7 @@ class _DetailWhatOn extends State<DetailWhatOn> {
                 ),
                 onPressed: () {},
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
                     Icon(
                       Icons.add,
@@ -405,13 +406,15 @@ class _DetailWhatOn extends State<DetailWhatOn> {
   }
 
   Widget buildShowMore(String text) {
+    final numLines = ''.allMatches(text).length + 1;
+    print(numLines);
     final maxLines = showmore ? null : 5;
     final overflow = showmore ? TextOverflow.visible : TextOverflow.ellipsis;
     return Text(
       text,
       maxLines: maxLines,
       overflow: overflow,
-      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
     );
   }
 }
