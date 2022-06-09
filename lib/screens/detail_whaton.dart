@@ -5,9 +5,10 @@ import 'package:jiffy/jiffy.dart';
 import 'package:social_network_app/blocs/event_bloc.dart';
 import 'package:social_network_app/models/event.dart';
 
+import '../blocs/event_detail_bloc.dart';
+
 class DetailWhatOn extends StatefulWidget {
   int id;
-
   DetailWhatOn({Key? key, required this.id}) : super(key: key);
 
   @override
@@ -16,14 +17,14 @@ class DetailWhatOn extends StatefulWidget {
 
 class _DetailWhatOn extends State<DetailWhatOn> {
   bool showmore = false;
+  EventDetailBloC evt = EventDetailBloC();
   @override
   Widget build(BuildContext context) {
-    EventBloC evt = EventBloC();
     evt.getEvent(widget.id);
     return SafeArea(
         child: Scaffold(
       body: StreamBuilder<Event>(
-          stream: evt.eventController.stream,
+          stream: evt.eventStream,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
@@ -58,7 +59,8 @@ class _DetailWhatOn extends State<DetailWhatOn> {
     ));
   }
 
-  Widget buildDetailWhatOnBar(BuildContext ctx, AsyncSnapshot<Event> snapshot) {
+  Widget buildDetailWhatOnBar(
+      BuildContext context, AsyncSnapshot<Event> snapshot) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -75,7 +77,7 @@ class _DetailWhatOn extends State<DetailWhatOn> {
             left: 24,
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(ctx);
+                Navigator.pop(context);
               },
               child: Container(
                 width: 44,
@@ -194,12 +196,24 @@ class _DetailWhatOn extends State<DetailWhatOn> {
                     borderRadius: BorderRadius.circular(4)),
                 minimumSize: const Size(68, 56), //////// HERE
               ),
-              onPressed: () {},
-              child: const Icon(
-                Icons.favorite_sharp,
-                size: 16,
-                color: Color.fromARGB(255, 0, 5, 250),
-              ),
+              onPressed: () {
+                evt.increaseLike(snapshot.data!.id);
+                print(snapshot.data!.isLike);
+              },
+              child: snapshot.data!.isLike == true
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.blueAccent,
+                    )
+                  : const Icon(
+                      Icons.favorite_border,
+                      color: Colors.blueAccent,
+                    ),
+              // child: const Icon(
+              //   Icons.favorite_sharp,
+              //   size: 16,
+              //   color: Color.fromARGB(255, 0, 5, 250),
+              // ),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -234,7 +248,7 @@ class _DetailWhatOn extends State<DetailWhatOn> {
               text: const TextSpan(
                 children: <TextSpan>[
                   TextSpan(
-                      text: '42 people are going including ',
+                      text: ' 42 people are going including ',
                       style: TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
                           fontSize: 14,
@@ -406,8 +420,6 @@ class _DetailWhatOn extends State<DetailWhatOn> {
   }
 
   Widget buildShowMore(String text) {
-    final numLines = ''.allMatches(text).length + 1;
-    print(numLines);
     final maxLines = showmore ? null : 5;
     final overflow = showmore ? TextOverflow.visible : TextOverflow.ellipsis;
     return Text(

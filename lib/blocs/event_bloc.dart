@@ -2,37 +2,21 @@ import 'dart:async';
 
 import 'package:social_network_app/models/event.dart';
 
+// Mỗi bloc chỉ dùng cho 1 màn hình
 class EventBloC {
-  late Event _event;
-  StreamController<Event> eventController = StreamController<Event>();
-  StreamController<List<Event>> listEventController =
+  // late Event _event;
+  // StreamController<Event> eventController = StreamController<Event>();
+  final StreamController<List<Event>> _listEventController =
       StreamController<List<Event>>();
 
+  Stream<List<Event>> get listEventStream => _listEventController.stream;
+
   List<Event> getlist() {
-    listEventController.sink.add(events);
+    _listEventController.sink.add(events);
     return events;
   }
 
-  Event? getEvent(int id) {
-    for (int i = 0; i < events.length; i++) {
-      if (events[i].id == id) {
-        eventController.sink.add(events[i]);
-        return events[i];
-      }
-    }
-    return null;
-  }
-
-  void increaseLike(int id) {
-    for (int i = 0; i < events.length; i++) {
-      if (events[i].id == id) {
-        if (events[i].isLike == false) {
-          events[i].isLike = true;
-        } else {
-          events[i].isLike = false;
-        }
-        eventController.sink.add(events[i]);
-      }
-    }
+  void dispose() {
+    _listEventController.close();
   }
 }

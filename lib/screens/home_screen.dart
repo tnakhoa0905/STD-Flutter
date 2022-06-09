@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:social_network_app/base_api/test_api.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:social_network_app/blocs/event_bloc.dart';
 import 'package:social_network_app/models/event.dart';
 
@@ -21,11 +22,12 @@ class _HomeScreen extends State<HomeScreen> {
     // TODO: implement build
     return SafeArea(
       child: Scaffold(
+        appBar: buildAppBar(context),
         body: Padding(
             padding: const EdgeInsets.all(24),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Expanded(flex: 1, child: buildAppBar(context)),
+              // tỉ lệ widget cha tại răng ko sử dụng fexible
               Expanded(flex: 1, child: buildTitle(context)),
               Expanded(flex: 11, child: buildList(context, eventBloC))
             ])),
@@ -34,26 +36,25 @@ class _HomeScreen extends State<HomeScreen> {
     );
   }
 
-  Widget buildAppBar(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {
-            print('Menu');
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: Color.fromARGB(255, 250, 250, 250),
+      elevation: 0,
+      leading: IconButton(
+          onPressed: () {
+            getAPI();
           },
-          child: const Icon(
+          icon: const Icon(
             Icons.menu,
             color: Color.fromARGB(255, 20, 114, 255),
             size: 32,
-          ),
-        ),
-        const Spacer(),
-        GestureDetector(
-            onTap: () {
-              print('Event');
-            },
-            child: const Icon(Icons.event,
-                color: Color.fromARGB(255, 20, 114, 255), size: 32)),
+          )),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.event,
+              color: Color.fromARGB(255, 20, 114, 255), size: 32),
+        )
       ],
     );
   }
@@ -66,19 +67,19 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   Widget buildList(BuildContext ctx, EventBloC evt) {
+    evt.getlist();
     return StreamBuilder<List<Event>>(
-      stream: evt.listEventController.stream,
+      stream: evt.listEventStream,
       builder: (ctx, snapshot) {
         if (snapshot.data != null) {
+          List<Event> listEvents = snapshot.data!;
           return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: snapshot.data!.length,
+              itemCount: listEvents.length,
               itemBuilder: (context, index) => WhatOnItem(
-                    id: snapshot.data![index].id,
+                    event: listEvents[index],
                   ));
-        } else if (snapshot.data == null) {
-          evt.getlist();
         }
         return const Center(child: CircularProgressIndicator());
       },
