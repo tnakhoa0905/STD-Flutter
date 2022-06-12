@@ -114,7 +114,7 @@ class AddHotel extends StatelessWidget {
           ),
           const Text(
             'Hotel Image',
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           ),
           ElevatedButton(
             onPressed: () {},

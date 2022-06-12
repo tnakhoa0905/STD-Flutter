@@ -85,9 +85,9 @@ class HomeScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Discover'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Bookmark'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Profile'),
         ]);
   }
 }
