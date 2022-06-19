@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_app/bloC/user_bloC.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
+  TextEditingController _username = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  UserBloC _userBloC = UserBloC();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
         child: Scaffold(
       body: Container(
@@ -52,6 +55,7 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               child: TextField(
+                controller: _username,
                 obscureText: false,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
@@ -68,6 +72,7 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               child: TextField(
+                controller: _password,
                 obscureText: true,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
@@ -94,7 +99,10 @@ class LoginScreen extends StatelessWidget {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ))),
-                    onPressed: () {},
+                    onPressed: () {
+                      _userBloC.signIn(
+                          _username.text.trim(), _password.text.trim());
+                    },
                     child: const Text(
                       'Sign in',
                       style:

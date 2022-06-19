@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_app/bloC/hotel_bloC.dart';
+import 'package:hotel_app/models/hotel.dart';
+import 'package:hotel_app/screens/add_hotel.dart';
 import 'package:hotel_app/widgets/hotel_item.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _HomeScreen();
+}
+
+class _HomeScreen extends State<HomeScreen> {
+  HotelBloC hotelBloC = HotelBloC();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color.fromARGB(255, 250, 251, 255),
+      backgroundColor: const Color.fromARGB(255, 250, 251, 255),
       body: Container(
         margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
         child: Column(
@@ -31,8 +40,10 @@ class HomeScreen extends StatelessWidget {
       child: Row(
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            //TODO: Tràn UI tên
             const Text(
               'Hello Linh',
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             RichText(
@@ -54,7 +65,12 @@ class HomeScreen extends StatelessWidget {
           ]),
           const Spacer(),
           GestureDetector(
-            onTap: (() => {print('object')}),
+            onTap: (() => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddHotel()),
+                  )
+                }),
             child: Container(
                 width: 20,
                 height: 20,
@@ -72,12 +88,30 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget buildListHotel(BuildContext context) {
-    return ListView.builder(
-      itemCount: 6,
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemBuilder: ((context, index) => HotelItem()),
-    );
+    hotelBloC.getListHotel();
+    return StreamBuilder<List<Hotel>>(
+        stream: hotelBloC.getListHotel(),
+        builder: (context, snapshot) {
+          print(snapshot.data);
+          if (snapshot.hasError) {
+            return Text('error ${snapshot.error}');
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          hotels = snapshot.data!;
+          // print(hotels[1].name);
+          return ListView.builder(
+            itemCount: hotels.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: ((context, index) => HotelItem(
+                  hotel: hotels[index],
+                )),
+          );
+        });
   }
 
   Widget buildBottomNavigationBar(BuildContext context) {

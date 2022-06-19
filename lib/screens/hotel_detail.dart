@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HotelDetail extends StatelessWidget {
+  const HotelDetail({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,13 +18,15 @@ class HotelDetail extends StatelessWidget {
               child: Image(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                      'https://s3-alpha-sig.figma.com/img/b6ea/7841/1631b2d8bb1a0fcf512ac21b67bad8a0?Expires=1655078400&Signature=OQJSLOyYaMCYhKskwjaBPr7FZhPrmn1imIljgbxjqxhVxaeyAe-ApQn9lwM9joE0W5MZQ26wIXLD8FvbUPjYPe9PdlvumISWE~aDoIa3XpQeTC8cOnhitlldXcOa4jIVVt5iqIywTws3EnYOE5md~9fXmx0rRliB7J2H-9Fk462fV6D-40VakWOk4f1uwAzRmTRGgGlvgRV4tySc9bINNueHgRGWJm10N0SQCQncAGv3mdqP37wt98V5cAjMKlZgUJvlSA2wYEgP-JGQMQT1GP4Tb6evnGZKKltqqpJGgXuGOTpMAsI~FPXcDyoSNegQyVwHDBxWFPQ3Tw~YWUy-sQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')),
+                      'https://s3-alpha-sig.figma.com/img/4d6d/2b57/e2b6311fbb092d48ee3db174a3c83ce5?Expires=1656288000&Signature=IC3zgw~0pc7Hg~tS~KaMEyhYku0Iecftw~NKtlF0SKjFVMNtnoYt8CgSaciySV6VmzvbwusXeQgBq82~tIkxrD87ucyQK7A8hSBY8uMURC6-Xhv0VNR4Jv12aDoG3xApFlKwJJ-~ElS5I3xuO4yhXVhqspw5bIj0aisE-RXMrozJYfgQ4vZ0~DY63nMwQ3OVn3nRBB6ulWMq9P69k3Dtm2qAV01hvjC1oQ-ypICEajifazd6DuubmzUpLwm9dzTTAUT1-II8s6FGlSy5120iGYLzbg-dPV--4w3pBgT~bzznRh5Xug4oKVfpQpYp2KoQ3dnb0keLlsYHOcI6EhJkwg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')),
             ),
             Positioned(
               top: 28,
               left: 10,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   icon: const Icon(
                     Icons.arrow_back,
                     color: Color.fromARGB(255, 255, 255, 255),
@@ -34,7 +38,7 @@ class HotelDetail extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {},
                 child: const Image(
-                    image: AssetImage('/image/detail_screen/save.png')),
+                    image: AssetImage('assets/image/detail_screen/save.png')),
               ),
             ),
             Positioned(
@@ -43,7 +47,7 @@ class HotelDetail extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {},
                 child: const Image(
-                    image: AssetImage('/image/detail_screen/share.png')),
+                    image: AssetImage('assets/image/detail_screen/share.png')),
               ),
             ),
             Positioned(
@@ -163,18 +167,10 @@ class HotelDetail extends StatelessWidget {
                       // const SizedBox(
                       //   height: 8,
                       // ),
-                      GridView.builder(
+                      ListView.builder(
                         shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: 10,
                         itemBuilder: (context, index) => buildComment(context),
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                          childAspectRatio: 1.0,
-                          // crossAxisSpacing: 20,
-                          // mainAxisSpacing: 20,
-                          mainAxisExtent: 112,
-                        ),
+                        itemCount: 6,
                       ),
                     ])),
               ),
@@ -187,7 +183,6 @@ class HotelDetail extends StatelessWidget {
 
   Widget buildComment(BuildContext context) {
     return Container(
-      height: 102,
       child: Column(
         children: [
           const SizedBox(
@@ -204,7 +199,8 @@ class HotelDetail extends StatelessWidget {
             children: [
               const CircleAvatar(
                 backgroundImage: NetworkImage(
-                    'https://s3-alpha-sig.figma.com/img/824b/f7b5/3ded6970930811705424c6598a268093?Expires=1655078400&Signature=MSEFWa2W1TM1hGd1S2-6La2M4bwaT7ICSHpdfChNu5cGPqhtMEnRP8mhUoOnSeFN1lBD60-aH3oMb9OQX4VnidXcqVkpuKaOEF0VGyqJ6XFY5ZcSwYdPjH2RHa7ns9Fh6xdirhIRrRevi728Puv~lG3aPOz7dSjgwlUqJulMUcvV4Moe911Yjo6p3-vuTHZWj4vLV1dpf2MDQBcKvFcK~MPKfSZXNqTdvCBtMZAYGaJh63PoYbmvpGeJPxDjJFuhZ3UaWBtU7wUmDFJgIjLfzNGjqQX--qI58E7FJCBbDwLiGQWpxjmx6guhcfpEnRNps4TIlr~QnKOGcK3ii3UUGA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'),
+                    'https://s3-alpha-sig.figma.com/img/4d6d/2b57/e2b6311fbb092d48ee3db174a3c83ce5?Expires=1656288000&Signature=IC3zgw~0pc7Hg~tS~KaMEyhYku0Iecftw~NKtlF0SKjFVMNtnoYt8CgSaciySV6VmzvbwusXeQgBq82~tIkxrD87ucyQK7A8hSBY8uMURC6-Xhv0VNR4Jv12aDoG3xApFlKwJJ-~ElS5I3xuO4yhXVhqspw5bIj0aisE-RXMrozJYfgQ4vZ0~DY63nMwQ3OVn3nRBB6ulWMq9P69k3Dtm2qAV01hvjC1oQ-ypICEajifazd6DuubmzUpLwm9dzTTAUT1-II8s6FGlSy5120iGYLzbg-dPV--4w3pBgT~bzznRh5Xug4oKVfpQpYp2KoQ3dnb0keLlsYHOcI6EhJkwg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+                    scale: 1),
               ),
               const SizedBox(
                 width: 10,
