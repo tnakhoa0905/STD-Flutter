@@ -67,6 +67,7 @@ flutter:
       - assets/image/login_screen/buildings_login.png
       - assets/image/login_screen/logo_login.png
       - assets/image/detail_screen/save.png
+      - assets/image/detail_screen/saved.png
       - assets/image/detail_screen/share.png
       - assets/
 

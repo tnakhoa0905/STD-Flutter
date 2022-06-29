@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_app/bloC/hotel_bloC.dart';
 import 'package:hotel_app/models/hotel.dart';
@@ -13,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   HotelBloC hotelBloC = HotelBloC();
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,8 +43,8 @@ class _HomeScreen extends State<HomeScreen> {
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             //TODO: Tràn UI tên
-            const Text(
-              'Hello Linh',
+            Text(
+              'Hello ${user!.uid}',
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),

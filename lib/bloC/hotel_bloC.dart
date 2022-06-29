@@ -23,11 +23,8 @@ class HotelBloC {
 
   Stream<List<Hotel>> getListHotel() {
     _listHotelController.sink.add(hotels);
-    print(FirebaseFirestore.instance
-        .collection('hotels')
-        .orderBy('name')
-        .snapshots()
-        .map((snapshot) =>
+    print(FirebaseFirestore.instance.collection('hotels').snapshots().map(
+        (snapshot) =>
             snapshot.docs.map((doc) => Hotel.fromJson(doc.data())).toList()));
     return FirebaseFirestore.instance.collection('hotels').snapshots().map(
         (snapshot) =>

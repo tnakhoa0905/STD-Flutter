@@ -1,3 +1,4 @@
+import 'package:hotel_app/models/review.dart';
 import 'package:hotel_app/models/user.dart';
 
 class Hotel {
@@ -9,7 +10,7 @@ class Hotel {
   int ratingStar = 0;
   int numberReviews = 0;
   bool isLiked;
-  List<User> users = [];
+  List<Review> reviews = [];
   int lon = 16;
   int lat = 17;
   Hotel(
@@ -20,7 +21,7 @@ class Hotel {
       required this.description,
       required this.ratingStar,
       required this.numberReviews,
-      required this.users,
+      required this.reviews,
       required this.isLiked,
       required this.lon,
       required this.lat});
@@ -33,7 +34,7 @@ class Hotel {
         'ratingStar': ratingStar,
         'numberReviews': numberReviews,
         'isLiked': isLiked,
-        'users': users,
+        'reviews': reviews,
         'lon': lon,
         'lat': lat
       };
@@ -45,7 +46,8 @@ class Hotel {
       description: json['description'],
       ratingStar: json['ratingStar'],
       numberReviews: json['numberReviews'],
-      users: List<User>.from(json['users'].map((e) => User.fromJson(e))),
+      reviews:
+          List<Review>.from(json['reviews'].map((e) => Review.fromJson(e))),
       isLiked: json['isLiked'] as bool,
       lon: json['lon'],
       lat: json['lat']);

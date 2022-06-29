@@ -196,7 +196,7 @@ class AddHotel extends StatelessWidget {
                         ratingStar: 0,
                         numberReviews: 0,
                         isLiked: false,
-                        users: [],
+                        reviews: [],
                         lon: 16,
                         lat: 16);
                     addHotelBloc.createHotel(hotel);

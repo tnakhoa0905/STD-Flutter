@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_app/bloC/user_bloC.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreen();
+}
+
+class _SignUpScreen extends State<SignUpScreen> {
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
-  UserBloC _userBloC = UserBloC();
+  TextEditingController _avt = TextEditingController();
+  TextEditingController _name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       body: Container(
-        margin: EdgeInsets.all(32),
+        margin: const EdgeInsets.fromLTRB(30, 12, 30, 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 68,
-            ),
             Stack(
               children: const [
                 Image(
@@ -34,7 +37,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 91,
+              height: 20,
             ),
             const Text(
               'Welcome to Condotel!',
@@ -44,7 +47,7 @@ class LoginScreen extends StatelessWidget {
               height: 4,
             ),
             const Text(
-              'Alive with your style of living!',
+              'Sign Up Your Account',
               style: TextStyle(
                   fontSize: 14,
                   color: Color.fromARGB(255, 154, 154, 154),
@@ -56,7 +59,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               child: TextField(
                 controller: _username,
-                obscureText: false,
+                // obscureText: false,
                 style: const TextStyle(
                     color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
                 decoration: InputDecoration(
@@ -85,6 +88,40 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              child: TextField(
+                controller: _password,
+                obscureText: true,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(left: 16, top: 20, bottom: 20),
+                    hintText: "Name",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0))),
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            SizedBox(
+              child: TextField(
+                controller: _password,
+                obscureText: true,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
+                decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.only(left: 16, top: 20, bottom: 20),
+                    hintText: "Avt",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0))),
+              ),
+            ),
+            const SizedBox(
               height: 40,
             ),
             SizedBox(
@@ -99,12 +136,9 @@ class LoginScreen extends StatelessWidget {
                                 RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0),
                         ))),
-                    onPressed: () {
-                      _userBloC.signIn(
-                          _username.text.trim(), _password.text.trim());
-                    },
+                    onPressed: () {},
                     child: const Text(
-                      'Sign in',
+                      'Sign up',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                     ))),

@@ -5,6 +5,7 @@ import 'package:hotel_app/screens/home_screen.dart';
 
 import 'package:hotel_app/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hotel_app/screens/signup_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const HomeScreen();
+              return const SignUpScreen();
             } else {
               return LoginScreen();
             }

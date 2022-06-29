@@ -12,12 +12,18 @@ class HotelItem extends StatefulWidget {
 
 class _HotelItem extends State<HotelItem> {
   HotelBloC hotelBloC = HotelBloC();
+
   @override
   Widget build(BuildContext context) {
+    print(widget.hotel.reviews[0].description);
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => const HotelDetail())));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => HotelDetail(
+                      hotel: widget.hotel,
+                    ))));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -39,6 +45,7 @@ class _HotelItem extends State<HotelItem> {
         child: Column(children: [
           //TODO: chia nhỏ return widget
           //TODO: sửa UI, chia nhỏ các sessions
+          // Text(widget.hotel.reviews[0].description),
           Stack(
             children: [
               SizedBox(
@@ -59,9 +66,13 @@ class _HotelItem extends State<HotelItem> {
                       hotelBloC.save(widget.hotel.id);
                       setState(() {});
                     },
-                    child: Image(
-                        image:
-                            AssetImage('assets/image/detail_screen/save.png')),
+                    child: widget.hotel.isLiked == false
+                        ? const Image(
+                            image: AssetImage(
+                                'assets/image/detail_screen/save.png'))
+                        : const Image(
+                            image: AssetImage(
+                                'assets/image/detail_screen/saved.png')),
                   ))
             ],
           ),

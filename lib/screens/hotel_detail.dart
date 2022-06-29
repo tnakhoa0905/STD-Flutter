@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_app/models/hotel.dart';
+import 'package:hotel_app/models/review.dart';
+import 'package:hotel_app/widgets/comment.dart';
 
-class HotelDetail extends StatelessWidget {
-  const HotelDetail({Key? key}) : super(key: key);
+import '../widgets/comment_item.dart';
 
+// ignore: must_be_immutable
+class HotelDetail extends StatefulWidget {
+  Hotel hotel;
+  HotelDetail({Key? key, required this.hotel}) : super(key: key);
+
+  @override
+  State<HotelDetail> createState() => _HotelDetail();
+}
+
+// ignore: must_be_immutable
+class _HotelDetail extends State<HotelDetail> {
+  // String image =
+  //     "https://s3-alpha-sig.figma.com/img/0689/5458/8ea3583b768a1996bfa2f07e0256dcb5?Expires=1657497600&Signature=HUE4mDyxauZEYybxgq0ZC0LsZ2UiUuCtBrpSslKBkd7nXlLn2W~76UEqukpikN~HT40oIAIB2EMNJixCJ8XBYctDblfKdaUXib7uxoB3tGwTrjBzP0fc5ySTCKcle57yqYT5c9JM6DRI-66Z733ZQVmHI4G7G7E8m50S30LGBtOnWNGMxnDQwpIZPZAPz62oobWpi73JKceRZhY8h0cInADRZ1MM0-U5hPHWHRE2460kKdgykmyIWaArbgo~uW-U95ApdQN9WN~jgfLV1rDUyCL3BI7ZcJ13qIEEvxBCqObkBUNuW2XXXxQKnJp-ptwDn6CCA~sQYbVgqyRTsN7lUQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA";
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -12,13 +27,12 @@ class HotelDetail extends StatelessWidget {
         heightFactor: 1,
         child: Stack(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 388,
               width: double.infinity,
               child: Image(
                   fit: BoxFit.cover,
-                  image: NetworkImage(
-                      'https://s3-alpha-sig.figma.com/img/4d6d/2b57/e2b6311fbb092d48ee3db174a3c83ce5?Expires=1656288000&Signature=IC3zgw~0pc7Hg~tS~KaMEyhYku0Iecftw~NKtlF0SKjFVMNtnoYt8CgSaciySV6VmzvbwusXeQgBq82~tIkxrD87ucyQK7A8hSBY8uMURC6-Xhv0VNR4Jv12aDoG3xApFlKwJJ-~ElS5I3xuO4yhXVhqspw5bIj0aisE-RXMrozJYfgQ4vZ0~DY63nMwQ3OVn3nRBB6ulWMq9P69k3Dtm2qAV01hvjC1oQ-ypICEajifazd6DuubmzUpLwm9dzTTAUT1-II8s6FGlSy5120iGYLzbg-dPV--4w3pBgT~bzznRh5Xug4oKVfpQpYp2KoQ3dnb0keLlsYHOcI6EhJkwg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA')),
+                  image: NetworkImage(widget.hotel.pathImage)),
             ),
             Positioned(
               top: 28,
@@ -65,16 +79,16 @@ class HotelDetail extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      const Text(
-                        'Leslie Alexander',
-                        style: TextStyle(
+                      Text(
+                        widget.hotel.name,
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.star_rate,
                             color: Color.fromARGB(255, 248, 208, 0),
@@ -101,8 +115,8 @@ class HotelDetail extends StatelessWidget {
                             size: 16,
                           ),
                           Text(
-                            ' 5.0 (1,2k reviews)',
-                            style: TextStyle(
+                            ' 5.0 (${widget.hotel.numberReviews} reviews)',
+                            style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w400),
                           )
                         ],
@@ -111,14 +125,14 @@ class HotelDetail extends StatelessWidget {
                         height: 10,
                       ),
                       Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.place_rounded,
                             color: Color.fromARGB(255, 154, 154, 154),
                             size: 16,
                           ),
                           Text(
-                            '  1901 Thornridge Cir. Shiloh, Hawaii 81063',
+                            widget.hotel.address,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -139,23 +153,19 @@ class HotelDetail extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        'Located in Marco Island, Marriott\'s Crystal Shores is near the beach. The area\'s natural beauty can be seen at Marco Beach and Tigertail Beach. Traveling with kids? Consider Marco Golf and... read more',
-                        style: TextStyle(
+                      Text(
+                        widget.hotel.description,
+                        style: const TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w400),
                       ),
                       const SizedBox(
                         height: 28,
                       ),
                       Row(
-                        children: const [
-                          Text('Reviews',
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600)),
-                          Spacer(),
-                          Text(
+                        children: [
+                          buildBottomSheetComment(context),
+                          const Spacer(),
+                          const Text(
                             'See more',
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
@@ -169,8 +179,11 @@ class HotelDetail extends StatelessWidget {
                       // ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemBuilder: (context, index) => buildComment(context),
-                        itemCount: 6,
+                        itemBuilder: (context, index) => buildComment(
+                            context,
+                            widget.hotel.reviews[index],
+                            widget.hotel.reviews[index].idUser),
+                        itemCount: widget.hotel.reviews.length,
                       ),
                     ])),
               ),
@@ -179,83 +192,5 @@ class HotelDetail extends StatelessWidget {
         ),
       ),
     ));
-  }
-
-  Widget buildComment(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 1,
-            decoration: const BoxDecoration(color: Colors.grey),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://s3-alpha-sig.figma.com/img/4d6d/2b57/e2b6311fbb092d48ee3db174a3c83ce5?Expires=1656288000&Signature=IC3zgw~0pc7Hg~tS~KaMEyhYku0Iecftw~NKtlF0SKjFVMNtnoYt8CgSaciySV6VmzvbwusXeQgBq82~tIkxrD87ucyQK7A8hSBY8uMURC6-Xhv0VNR4Jv12aDoG3xApFlKwJJ-~ElS5I3xuO4yhXVhqspw5bIj0aisE-RXMrozJYfgQ4vZ0~DY63nMwQ3OVn3nRBB6ulWMq9P69k3Dtm2qAV01hvjC1oQ-ypICEajifazd6DuubmzUpLwm9dzTTAUT1-II8s6FGlSy5120iGYLzbg-dPV--4w3pBgT~bzznRh5Xug4oKVfpQpYp2KoQ3dnb0keLlsYHOcI6EhJkwg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                    scale: 1),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Siuska G.'),
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.star_rate,
-                        color: Color.fromARGB(255, 248, 208, 0),
-                        size: 12,
-                      ),
-                      Icon(
-                        Icons.star_rate,
-                        color: Color.fromARGB(255, 248, 208, 0),
-                        size: 12,
-                      ),
-                      Icon(
-                        Icons.star_rate,
-                        color: Color.fromARGB(255, 248, 208, 0),
-                        size: 12,
-                      ),
-                      Icon(
-                        Icons.star_rate,
-                        color: Color.fromARGB(255, 248, 208, 0),
-                        size: 12,
-                      ),
-                      Icon(
-                        Icons.star_rate,
-                        color: Color.fromARGB(255, 248, 208, 0),
-                        size: 12,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              const Spacer(),
-              const Text('12  '),
-              const Icon(
-                Icons.thumb_up,
-                color: Colors.grey,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          const Text(
-              'The house was really comfortable .Everything was clean and organized. I do recommended.')
-        ],
-      ),
-    );
   }
 }
