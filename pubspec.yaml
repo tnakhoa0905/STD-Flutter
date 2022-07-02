@@ -39,6 +39,8 @@ dependencies:
   firebase_core_web: ^1.6.5
   cloud_firestore: ^3.1.18
   firebase_auth: ^3.3.20
+  dotted_border: ^2.0.0+2
+
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +71,7 @@ flutter:
       - assets/image/detail_screen/save.png
       - assets/image/detail_screen/saved.png
       - assets/image/detail_screen/share.png
+      - assets/image/add_hotel/gallery.png
       - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_app/bloC/review_bloC.dart';
 import 'package:hotel_app/models/hotel.dart';
 import 'package:hotel_app/models/review.dart';
-import 'package:hotel_app/widgets/comment.dart';
+import 'package:hotel_app/widgets/bottomSheet_comment.dart';
 
 import '../widgets/comment_item.dart';
 
@@ -16,10 +18,10 @@ class HotelDetail extends StatefulWidget {
 
 // ignore: must_be_immutable
 class _HotelDetail extends State<HotelDetail> {
-  // String image =
-  //     "https://s3-alpha-sig.figma.com/img/0689/5458/8ea3583b768a1996bfa2f07e0256dcb5?Expires=1657497600&Signature=HUE4mDyxauZEYybxgq0ZC0LsZ2UiUuCtBrpSslKBkd7nXlLn2W~76UEqukpikN~HT40oIAIB2EMNJixCJ8XBYctDblfKdaUXib7uxoB3tGwTrjBzP0fc5ySTCKcle57yqYT5c9JM6DRI-66Z733ZQVmHI4G7G7E8m50S30LGBtOnWNGMxnDQwpIZPZAPz62oobWpi73JKceRZhY8h0cInADRZ1MM0-U5hPHWHRE2460kKdgykmyIWaArbgo~uW-U95ApdQN9WN~jgfLV1rDUyCL3BI7ZcJ13qIEEvxBCqObkBUNuW2XXXxQKnJp-ptwDn6CCA~sQYbVgqyRTsN7lUQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA";
   @override
   Widget build(BuildContext context) {
+    ReviewBloC reviewBloC = ReviewBloC();
+    reviewBloC.getListReview(widget.hotel.reviews);
     return SafeArea(
         child: Scaffold(
       body: FractionallySizedBox(
@@ -126,14 +128,14 @@ class _HotelDetail extends State<HotelDetail> {
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.place_rounded,
                             color: Color.fromARGB(255, 154, 154, 154),
                             size: 16,
                           ),
                           Text(
                             widget.hotel.address,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Color.fromARGB(255, 154, 154, 154)),
@@ -163,7 +165,8 @@ class _HotelDetail extends State<HotelDetail> {
                       ),
                       Row(
                         children: [
-                          buildBottomSheetComment(context),
+                          buildBottomSheetComment(context, widget.hotel.id,
+                              FirebaseAuth.instance.currentUser!.uid),
                           const Spacer(),
                           const Text(
                             'See more',
@@ -174,17 +177,23 @@ class _HotelDetail extends State<HotelDetail> {
                           )
                         ],
                       ),
-                      // const SizedBox(
-                      //   height: 8,
-                      // ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => buildComment(
-                            context,
-                            widget.hotel.reviews[index],
-                            widget.hotel.reviews[index].idUser),
-                        itemCount: widget.hotel.reviews.length,
-                      ),
+                      Container(
+                          child: widget.hotel.reviews.isNotEmpty
+                              ? StreamBuilder<List<Review>>(
+                                  stream: reviewBloC.listReviewStream,
+                                  builder: (context, snapshot) {
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemBuilder: (context, index) =>
+                                          buildComment(
+                                              context,
+                                              snapshot.data![index],
+                                              FirebaseAuth
+                                                  .instance.currentUser!.uid),
+                                      itemCount: widget.hotel.reviews.length,
+                                    );
+                                  })
+                              : const Text('No comment'))
                     ])),
               ),
             ),

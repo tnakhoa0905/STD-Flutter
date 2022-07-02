@@ -1,13 +1,13 @@
 class Review {
   String description;
   int rating;
-  bool isLiked;
+  int isLiked;
   String idUser;
 
   Review({
     required this.description,
     required this.rating,
-    required this.isLiked,
+    this.isLiked = 0,
     required this.idUser,
   });
   static Review fromJson(Map<String, dynamic> json) => Review(
@@ -24,3 +24,5 @@ class Review {
         "uid": idUser,
       };
 }
+
+List<Review> listReviews = [];

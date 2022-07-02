@@ -15,7 +15,7 @@ class _HotelItem extends State<HotelItem> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.hotel.reviews[0].description);
+    // print(widget.hotel.reviews[0].description);
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -67,12 +67,28 @@ class _HotelItem extends State<HotelItem> {
                       setState(() {});
                     },
                     child: widget.hotel.isLiked == false
-                        ? const Image(
-                            image: AssetImage(
-                                'assets/image/detail_screen/save.png'))
-                        : const Image(
-                            image: AssetImage(
-                                'assets/image/detail_screen/saved.png')),
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.2)),
+                            child: const Image(
+                                height: 16,
+                                image: AssetImage(
+                                    'assets/image/detail_screen/save.png')),
+                          )
+                        : Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.2)),
+                            child: const Image(
+                                height: 16,
+                                image: AssetImage(
+                                    'assets/image/detail_screen/saved.png')),
+                          ),
                   ))
             ],
           ),
@@ -87,33 +103,21 @@ class _HotelItem extends State<HotelItem> {
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               const Spacer(),
-              const Icon(
-                Icons.star_rate,
-                color: const Color.fromARGB(255, 248, 208, 0),
-                size: 14,
+              SizedBox(
+                height: 14,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.hotel.ratingStar,
+                  itemBuilder: (context, index) => const Icon(
+                    Icons.star_rate,
+                    color: Color.fromARGB(255, 248, 208, 0),
+                    size: 12,
+                  ),
+                ),
               ),
-              const Icon(
-                Icons.star_rate,
-                color: Color.fromARGB(255, 248, 208, 0),
-                size: 14,
-              ),
-              const Icon(
-                Icons.star_rate,
-                color: Color.fromARGB(255, 248, 208, 0),
-                size: 14,
-              ),
-              const Icon(
-                Icons.star_rate,
-                color: Color.fromARGB(255, 248, 208, 0),
-                size: 14,
-              ),
-              const Icon(
-                Icons.star_rate,
-                color: Color.fromARGB(255, 248, 208, 0),
-                size: 14,
-              ),
-              const Text(
-                ' 5.0',
+              Text(
+                ' ${widget.hotel.ratingStar}.0',
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
               )

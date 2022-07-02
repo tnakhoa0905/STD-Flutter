@@ -1,12 +1,18 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_app/bloC/add_hotel_bloC.dart';
 import 'package:hotel_app/bloC/hotel_bloC.dart';
+import 'package:hotel_app/bloC/image_bloC.dart';
 import 'package:hotel_app/models/hotel.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AddHotel extends StatelessWidget {
   AddHotelBloC addHotelBloc = AddHotelBloC();
   HotelBloC hotelBloC = HotelBloC();
+  final ImageBloC _imageBloC = ImageBloC();
+  File? file;
   final TextEditingController _hotelname = TextEditingController();
   final TextEditingController _address = TextEditingController();
   final TextEditingController _pathImage = TextEditingController(
@@ -133,14 +139,53 @@ class AddHotel extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          const Text(
-            'Hotel Image',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Icon(Icons.add),
-          )
+          StreamBuilder<File?>(
+              stream: _imageBloC.imagePath,
+              builder: (context, snapshot) {
+                final imageFile = snapshot.data;
+                file = imageFile;
+                print(file);
+                return imageFile == null
+                    ? DottedBorder(
+                        color: Colors.grey,
+                        strokeWidth: 1,
+                        dashPattern: const [8, 4],
+                        borderType: BorderType.RRect,
+                        radius: const Radius.circular(8),
+                        child: InkWell(
+                          onTap: () {
+                            _imageBloC.pickImage();
+                          },
+                          child: GestureDetector(
+                            onTap: () => _imageBloC.pickImage(),
+                            child: SizedBox(
+                              width: 139,
+                              height: 139,
+                              child: Center(
+                                  child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Image.asset(
+                                      'assets/image/add_hotel/gallery.png',
+                                      height: 24),
+                                  const SizedBox(height: 5),
+                                  const Text('Add image', style: TextStyle())
+                                ],
+                              )),
+                            ),
+                          ),
+                        ),
+                      )
+                    : ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                        child: Image.file(
+                          imageFile,
+                          height: 162,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ));
+              }),
         ],
       ),
     );
@@ -164,9 +209,11 @@ class AddHotel extends StatelessWidget {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ))),
-                  onPressed: () {
-                    hotelBloC.readHotel();
-                    hotelBloC.getListHotel();
+                  onPressed: () async {
+                    // hotelBloC.readHotel();
+                    // hotelBloC.getListHotel();
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pop(context);
                   },
                   child: const Text(
                     'Cancel',
