@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_app/bloC/add_hotel_bloC.dart';
 import 'package:hotel_app/bloC/hotel_bloC.dart';
 import 'package:hotel_app/bloC/image_bloC.dart';
+import 'package:hotel_app/firebase/firebase_storage.dart';
 import 'package:hotel_app/models/hotel.dart';
 
 class AddHotel extends StatelessWidget {
@@ -26,11 +27,13 @@ class AddHotel extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Column(children: [
-        Flexible(flex: 1, child: buildAddHotelBar(context)),
-        Flexible(flex: 8, child: buildAddHotel(context)),
-        Flexible(flex: 1, child: buildBottomBar(context))
-      ]),
+      body: SingleChildScrollView(
+        child: Column(children: [
+          buildAddHotelBar(context),
+          buildAddHotel(context),
+          buildBottomBar(context)
+        ]),
+      ),
     ));
   }
 
@@ -47,7 +50,10 @@ class AddHotel extends StatelessWidget {
           'Add Hotel',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
-        const Text('')
+        Icon(
+          Icons.arrow_back_outlined,
+          color: Color.fromARGB(255, 250, 251, 255),
+        )
       ],
     );
   }
@@ -71,9 +77,6 @@ class AddHotel extends StatelessWidget {
           SizedBox(
             child: TextField(
               controller: _hotelname,
-              keyboardType: TextInputType.multiline,
-              minLines: 1,
-              maxLines: 5,
               style: const TextStyle(
                   color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
               decoration: InputDecoration(
@@ -126,6 +129,9 @@ class AddHotel extends StatelessWidget {
           SizedBox(
             child: TextField(
               controller: _description,
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 5,
               style: const TextStyle(
                   color: Color.fromARGB(255, 154, 154, 154), fontSize: 14),
               decoration: InputDecoration(
@@ -210,9 +216,7 @@ class AddHotel extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                       ))),
                   onPressed: () async {
-                    // hotelBloC.readHotel();
-                    // hotelBloC.getListHotel();
-                    await FirebaseAuth.instance.signOut();
+                    await Storage().uploadAndGetImageLink('khoa', file!);
                     Navigator.pop(context);
                   },
                   child: const Text(

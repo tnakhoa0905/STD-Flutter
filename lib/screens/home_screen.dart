@@ -7,6 +7,10 @@ import 'package:hotel_app/models/hotel.dart';
 import 'package:hotel_app/models/user.dart' as model;
 
 import 'package:hotel_app/screens/add_hotel.dart';
+import 'package:hotel_app/screens/book_mark_screen.dart';
+import 'package:hotel_app/screens/discover_screen.dart';
+import 'package:hotel_app/screens/home_page.dart';
+import 'package:hotel_app/screens/prolife_screen.dart';
 import 'package:hotel_app/widgets/hotel_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,130 +21,73 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  HotelBloC hotelBloC = HotelBloC();
-  UserBloC userBloC = UserBloC();
-  final _auth = FirebaseAuth.instance.currentUser;
+  final items = [HomePage(), Discover(), BookMark(), Prolife()];
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color.fromARGB(255, 250, 251, 255),
-      body: Container(
-        margin: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        child: Column(
-          children: [
-            buildAppBar(context),
-            const SizedBox(
-              height: 28,
-            ),
-            Expanded(child: buildListHotel(context)),
-          ],
-        ),
-      ),
+      body: items[currentIndex],
       bottomNavigationBar: buildBottomNavigationBar(context),
     ));
-  }
-
-  Widget buildAppBar(BuildContext context) {
-    return FutureBuilder<model.User>(
-      future: userBloC.getUser(_auth!.uid),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          model.User? user = snapshot.data;
-          return Container(
-            margin: const EdgeInsets.fromLTRB(32, 0, 32, 0),
-            child: Row(
-              children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  //TODO: Tràn UI tên
-                  Text(
-                    'Hello ${user!.name}',
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  RichText(
-                    text: const TextSpan(
-                        text: 'Explore ',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                            fontWeight: FontWeight.w600),
-                        children: [
-                          TextSpan(
-                              text: 'New Hotels',
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 87, 255),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600))
-                        ]),
-                  )
-                ]),
-                const Spacer(),
-                GestureDetector(
-                  onTap: (() => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddHotel()),
-                        )
-                      }),
-                  child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(width: 1)),
-                      child: const Icon(
-                        Icons.add,
-                        size: 16,
-                      )),
-                )
-              ],
-            ),
-          );
-        }
-        return const CircularProgressIndicator();
-      },
-    );
-  }
-
-  Widget buildListHotel(BuildContext context) {
-    hotelBloC.getListHotel();
-    return StreamBuilder<List<Hotel>>(
-        stream: hotelBloC.getListHotel(),
-        builder: (context, snapshot) {
-          print(snapshot.data);
-          if (snapshot.hasError) {
-            return Text('error ${snapshot.error}');
-          }
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          hotels = snapshot.data!;
-          // print(hotels[1].name);
-          return ListView.builder(
-            itemCount: hotels.length,
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: ((context, index) => HotelItem(
-                  hotel: hotels[index],
-                )),
-          );
-        });
   }
 
   Widget buildBottomNavigationBar(BuildContext context) {
     return BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue.shade400,
+        unselectedItemColor: Colors.grey,
+        iconSize: 24,
+        selectedIconTheme: IconThemeData(
+          size: 28,
+          color: Colors.blue.shade400,
+        ),
+        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        selectedFontSize: 16,
+        unselectedFontSize: 12,
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() {
+              currentIndex = index;
+            }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Discover'),
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Bookmark'),
           BottomNavigationBarItem(
+              activeIcon: Image(
+                  image: AssetImage('assets/image/home_page/home_active.png')),
               icon: Padding(
                 padding: EdgeInsets.all(3),
-                child: Image(image: AssetImage('assetName')),
+                child:
+                    Image(image: AssetImage('assets/image/home_page/home.png')),
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(
+              activeIcon: Image(
+                  image: AssetImage(
+                      'assets/image/home_page/discovery_active.png')),
+              icon: Padding(
+                padding: EdgeInsets.all(3),
+                child: Image(
+                    image: AssetImage('assets/image/home_page/discovery.png')),
+              ),
+              label: 'Discover'),
+          BottomNavigationBarItem(
+              activeIcon: Image(
+                  image: AssetImage(
+                      'assets/image/home_page/book_mark_active.png')),
+              icon: Padding(
+                padding: EdgeInsets.all(3),
+                child: Image(
+                    image: AssetImage('assets/image/home_page/book_mark.png')),
+              ),
+              label: 'Bookmark'),
+          BottomNavigationBarItem(
+              activeIcon: Image(
+                  image:
+                      AssetImage('assets/image/home_page/prolife_active.png')),
+              icon: Padding(
+                padding: EdgeInsets.all(3),
+                child: Image(
+                    image: AssetImage('assets/image/home_page/prolife.png')),
               ),
               label: 'Profile'),
         ]);
