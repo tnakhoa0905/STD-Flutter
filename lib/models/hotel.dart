@@ -1,5 +1,5 @@
 import 'package:hotel_app/models/review.dart';
-import 'package:hotel_app/models/user.dart';
+import 'package:hotel_app/models/user.dart' as model;
 
 class Hotel {
   String id;
@@ -11,6 +11,7 @@ class Hotel {
   int numberReviews = 0;
   bool isLiked;
   List<Review> reviews = [];
+  List<model.User> users = [];
   int lon = 16;
   int lat = 17;
   Hotel(
@@ -22,6 +23,7 @@ class Hotel {
       required this.ratingStar,
       required this.numberReviews,
       required this.reviews,
+      required this.users,
       required this.isLiked,
       required this.lon,
       required this.lat});
@@ -35,6 +37,7 @@ class Hotel {
         'numberReviews': numberReviews,
         'isLiked': isLiked,
         'reviews': reviews,
+        'users': users,
         'lon': lon,
         'lat': lat
       };
@@ -48,6 +51,8 @@ class Hotel {
       numberReviews: json['numberReviews'],
       reviews:
           List<Review>.from(json['reviews'].map((e) => Review.fromJson(e))),
+      users: List<model.User>.from(
+          json['users'].map((e) => model.User.fromJson(e))),
       isLiked: json['isLiked'] as bool,
       lon: json['lon'],
       lat: json['lat']);

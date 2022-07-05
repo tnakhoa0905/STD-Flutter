@@ -18,7 +18,7 @@ TextButton buildBottomSheetComment(
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(20))),
-              height: MediaQuery.of(context).size.height - 550,
+              height: MediaQuery.of(context).size.height * 2 / 3,
               // color: Colors.amber,
               child: Center(
                 child: Column(

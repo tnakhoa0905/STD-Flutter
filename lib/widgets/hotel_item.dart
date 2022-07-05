@@ -1,11 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_app/bloC/hotel_bloC.dart';
+import 'package:hotel_app/bloC/user_bloC.dart';
 import 'package:hotel_app/models/hotel.dart';
+import 'package:hotel_app/models/user.dart' as model;
+
 import 'package:hotel_app/screens/hotel_detail.dart';
 
 class HotelItem extends StatefulWidget {
-  HotelItem({Key? key, required this.hotel}) : super(key: key);
+  HotelItem({Key? key, required this.hotel, required this.user})
+      : super(key: key);
   Hotel hotel;
+  model.User? user;
   @override
   State<HotelItem> createState() => _HotelItem();
 }
@@ -41,11 +47,8 @@ class _HotelItem extends State<HotelItem> {
         width: 382,
         height: 259,
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        margin: const EdgeInsets.fromLTRB(2, 2, 2, 16),
+        margin: const EdgeInsets.fromLTRB(18, 18, 18, 16),
         child: Column(children: [
-          //TODO: chia nhỏ return widget
-          //TODO: sửa UI, chia nhỏ các sessions
-          // Text(widget.hotel.reviews[0].description),
           Stack(
             children: [
               SizedBox(
@@ -63,8 +66,7 @@ class _HotelItem extends State<HotelItem> {
                   right: 8,
                   child: GestureDetector(
                     onTap: () {
-                      hotelBloC.save(widget.hotel.id);
-                      setState(() {});
+                      hotelBloC.save(widget.hotel.id, widget.user!);
                     },
                     child: widget.hotel.isLiked == false
                         ? Container(
@@ -130,7 +132,7 @@ class _HotelItem extends State<HotelItem> {
             children: [
               const Icon(
                 Icons.place_rounded,
-                color: const Color.fromARGB(255, 154, 154, 154),
+                color: Color.fromARGB(255, 154, 154, 154),
                 size: 16,
               ),
               Text(

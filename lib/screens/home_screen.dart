@@ -1,17 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_app/bloC/hotel_bloC.dart';
-import 'package:hotel_app/bloC/user_bloC.dart';
-import 'package:hotel_app/models/hotel.dart';
-import 'package:hotel_app/models/user.dart' as model;
 
-import 'package:hotel_app/screens/add_hotel.dart';
 import 'package:hotel_app/screens/book_mark_screen.dart';
 import 'package:hotel_app/screens/discover_screen.dart';
 import 'package:hotel_app/screens/home_page.dart';
 import 'package:hotel_app/screens/prolife_screen.dart';
-import 'package:hotel_app/widgets/hotel_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

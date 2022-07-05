@@ -182,6 +182,9 @@ class _HotelDetail extends State<HotelDetail> {
                               ? StreamBuilder<List<Review>>(
                                   stream: reviewBloC.listReviewStream,
                                   builder: (context, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return const CircularProgressIndicator();
+                                    }
                                     return ListView.builder(
                                       shrinkWrap: true,
                                       itemBuilder: (context, index) =>

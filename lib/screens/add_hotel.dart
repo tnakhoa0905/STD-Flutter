@@ -237,20 +237,22 @@ class AddHotel extends StatelessWidget {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ))),
-                  onPressed: () {
+                  onPressed: () async {
                     Hotel hotel = Hotel(
                         id: '0',
                         name: _hotelname.text,
                         address: _address.text,
-                        pathImage: _pathImage.text,
+                        pathImage: await Storage()
+                            .uploadAndGetImageLink('khoa', file!),
                         description: _description.text,
                         ratingStar: 0,
                         numberReviews: 0,
                         isLiked: false,
                         reviews: [],
+                        users: [],
                         lon: 16,
                         lat: 16);
-                    addHotelBloc.createHotel(hotel);
+                    await addHotelBloc.createHotel(hotel);
                     Navigator.pop(context);
                   },
                   child: const Text(

@@ -11,6 +11,9 @@ Widget buildComment(BuildContext context, Review review, String uid) {
   return StreamBuilder<modelUser.User>(
       stream: userBloC.userStream,
       builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
         final user = snapshot.data!;
         return Container(
           child: Column(

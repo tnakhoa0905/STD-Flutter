@@ -12,28 +12,40 @@ class Prolife extends StatelessWidget {
     User _auth = FirebaseAuth.instance.currentUser!;
     return SafeArea(
         child: Scaffold(
-            body: Container(
-      margin: const EdgeInsets.all(32),
-      child: SingleChildScrollView(
-          child: FutureBuilder<model.User>(
-        future: _userBloC.getUser(_auth.uid),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            model.User? user = snapshot.data;
-            return Container(
-                margin: const EdgeInsets.fromLTRB(32, 0, 32, 0),
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(user!.avt),
-                    ),
-                    Text(user.name)
-                  ],
-                ));
-          }
-          return const CircularProgressIndicator();
-        },
-      )),
-    )));
+            appBar: AppBar(
+              title: const Center(
+                  child: Text(
+                'Prolife',
+                style: TextStyle(color: Colors.black),
+              )),
+              backgroundColor: Colors.white,
+            ),
+            body: FutureBuilder<model.User>(
+              future: _userBloC.getUser(_auth.uid),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  model.User? user = snapshot.data;
+                  return Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.fromLTRB(32, 32, 32, 32),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            maxRadius: 60,
+                            minRadius: 30,
+                            backgroundImage: NetworkImage(user!.avt),
+                          ),
+                          Text(user.name),
+                          Spacer(),
+                          ElevatedButton(
+                              style: const ButtonStyle(),
+                              onPressed: () => FirebaseAuth.instance.signOut(),
+                              child: const Text('Sign Out'))
+                        ],
+                      ));
+                }
+                return const CircularProgressIndicator();
+              },
+            )));
   }
 }
