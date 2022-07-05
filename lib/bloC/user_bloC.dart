@@ -42,4 +42,8 @@ class UserBloC {
     _userController.sink.add(model.User.fromJson(result.data()!));
     return model.User.fromJson(result.data()!);
   }
+
+  void dispose() {
+    _userControllerFirebase.close();
+  }
 }

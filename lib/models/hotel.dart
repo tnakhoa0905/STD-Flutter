@@ -59,3 +59,4 @@ class Hotel {
 }
 
 List<Hotel> hotels = [];
+List<Hotel> listBookMarks = [];

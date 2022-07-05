@@ -67,8 +67,9 @@ class _HotelItem extends State<HotelItem> {
                   child: GestureDetector(
                     onTap: () {
                       hotelBloC.save(widget.hotel.id, widget.user!);
+                      setState(() {});
                     },
-                    child: widget.hotel.isLiked == false
+                    child: widget.hotel.users.isEmpty
                         ? Container(
                             width: 30,
                             height: 30,
@@ -101,6 +102,7 @@ class _HotelItem extends State<HotelItem> {
             children: [
               Text(
                 widget.hotel.name,
+                overflow: TextOverflow.ellipsis,
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),

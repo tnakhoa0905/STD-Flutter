@@ -40,26 +40,29 @@ class HotelBloC {
       if (item.id == hotelID) {
         print('id suscess');
         if (item.users.isEmpty) {
-          print('add user ${user.name}');
           await docHotel
               .update({
                 'users': FieldValue.arrayUnion([user.toJson()])
               })
-              .then((value) => print('ok'))
+              .then((value) => print('ok add'))
               .catchError((onError) => print("wrong in $onError"));
           item.users.add(user);
+          listBookMarks.add(item);
           return;
         }
         for (var useritem in item.users) {
           print('loop user');
           if (useritem.id == user.id) {
+            print('add user ${user.name}');
             print('remove user');
             item.users.remove(useritem);
+            listBookMarks.remove(item);
+
             await docHotel
                 .update({
                   'users': FieldValue.arrayRemove([user.toJson()])
                 })
-                .then((value) => print('ok'))
+                .then((value) => print('ok remove'))
                 .catchError((onError) => print("wrong in $onError"));
             return;
           } else {
@@ -68,13 +71,18 @@ class HotelBloC {
                 .update({
                   'users': FieldValue.arrayUnion([user.toJson()])
                 })
-                .then((value) => print('ok'))
+                .then((value) => print('ok add'))
                 .catchError((onError) => print("wrong in $onError"));
             item.users.add(user);
+            listBookMarks.add(item);
             return;
           }
         }
       }
     }
+  }
+
+  void dispose() {
+    _listHotelController.close();
   }
 }

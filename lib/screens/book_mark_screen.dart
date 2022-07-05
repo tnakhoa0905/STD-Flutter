@@ -6,11 +6,23 @@ import 'package:hotel_app/models/hotel.dart';
 import 'package:hotel_app/widgets/hotel_item.dart';
 import '../models/user.dart' as model;
 
-class BookMark extends StatelessWidget {
-  BookMark({Key? key}) : super(key: key);
+class BookMark extends StatefulWidget {
+  const BookMark({Key? key}) : super(key: key);
+
+  @override
+  State<BookMark> createState() => _BookMark();
+}
+
+class _BookMark extends State<BookMark> {
   final bookMarkBloc = BookMarkBloC();
   final _auth = FirebaseAuth.instance.currentUser;
   final userBloC = UserBloC();
+  @override
+  void dispose() {
+    userBloC.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +36,10 @@ class BookMark extends StatelessWidget {
               model.User user = snapshot.data!;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [buildAppBar(context), buildListHotel(context, user)],
+                children: [
+                  Expanded(flex: 2, child: buildAppBar(context)),
+                  Expanded(flex: 10, child: buildListHotel(context, user))
+                ],
               );
             }
             return const Center(child: CircularProgressIndicator());
@@ -55,30 +70,26 @@ class BookMark extends StatelessWidget {
 
   Widget buildListHotel(BuildContext context, model.User user) {
     bookMarkBloc.getListBookMark(user.id);
-    return StreamBuilder<List<Hotel>>(
+    return StreamBuilder<List<Hotel>?>(
         stream: bookMarkBloc.bookMarkController,
         builder: (context, snapshot) {
-          print("------" * 20);
-
           if (snapshot.hasError) {
             return Text('error ${snapshot.error}');
           }
           if (!snapshot.hasData) {
-            print("__________" * 20);
-
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          print("**********" * 20);
+
           List<Hotel> listHotels = snapshot.data!;
           print(listHotels);
-          if (hotels.isEmpty) {
+          if (listHotels.isEmpty) {
             return const Text('No Bookmark');
           } else {
             print('have list');
             return ListView.builder(
-              itemCount: hotels.length,
+              itemCount: listHotels.length,
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemBuilder: ((context, index) => HotelItem(
